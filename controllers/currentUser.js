@@ -2,7 +2,8 @@ import { getUser } from "../auth/jwt.js";
 import { User } from "../data/mongodb.js";
 
 const currentUserController = async (req, res) => {
-  const token = req.cookies.jwt;
+  console.log("current user!");
+  const token = req.body.jwt;
   if (token) {
     try {
       const user = getUser(token);
@@ -15,11 +16,9 @@ const currentUserController = async (req, res) => {
       }
       return res.status(401).json({ message: "User is a fake one!" });
     } catch (error) {
-      console.error("Error decoding token:", error);
       return res.status(400).json("Invalid cookie");
     }
   } else {
-    console.log("No cookie found");
     return res.status(400).json("No cookie found");
   }
 };

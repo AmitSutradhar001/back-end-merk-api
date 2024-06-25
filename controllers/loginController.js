@@ -2,7 +2,6 @@ import { User } from "../data/mongodb.js"; // users from the db
 import bcrypt from "bcryptjs"; // hashing
 import { setUser } from "../auth/jwt.js"; // create token function
 
-
 const loginController = async (req, res) => {
   console.log("loginController!");
   try {
@@ -17,12 +16,12 @@ const loginController = async (req, res) => {
     const currentUser = await User.findOne({ email }).select("-password -_id");
 
     const token = setUser(user._id);
-    return res
-      .status(200)
-      .cookie("jwt", token, { sameSite: "None", secure: true }) // jwt is the cookie name and token is the value
-      .json({ msg: "User Loged in Successfuly!", data: currentUser });
+    return res.status(200).json({
+      msg: "User Loged in Successfuly!",
+      data: currentUser,
+      jwt: token,
+    });
   } catch (error) {
-    console.log(error);
     return res.status(error.status || 500).json({ message: error.message });
   }
 };
