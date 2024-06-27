@@ -25,11 +25,9 @@ const signupController = async (req, res) => {
       { folder: "avatars" },
       async (error, result) => {
         if (error) {
-          console.error("Error uploading to Cloudinary:", error);
           return res.status(500).json({ message: "Error uploading file" });
         }
 
-        console.log("Cloudinary upload result:", result);
         const newUser = new User({
           email,
           password: hashedPassword,

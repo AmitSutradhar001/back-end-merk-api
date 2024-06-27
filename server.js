@@ -15,7 +15,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 app.use(cookieParser());
 const corsOptions = {
-  origin: process.env.ORIGIN,
+  origin: process.env.ORIGIN || "https://front-end-mern-joke-app.onrender.com",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -31,5 +31,8 @@ app.use("/changekey/", changeKey);
 
 app.use(notFound);
 app.use(error);
+
+// Handling OPTIONS requests
+app.options("*", cors(corsOptions));
 
 app.listen(port, () => console.log(`Server is running on ${port}!`));
