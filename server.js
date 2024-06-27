@@ -15,7 +15,7 @@ const port = process.env.PORT || 8080;
 const app = express();
 app.use(cookieParser());
 const corsOptions = {
-  origin: process.env.ORIGIN || "https://front-end-mern-joke-app.onrender.com",
+  origin: "https://front-end-mern-joke-app.onrender.com",
   credentials: true,
 };
 app.use(cors(corsOptions));
